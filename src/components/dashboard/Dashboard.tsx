@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react'
+import { motion } from 'framer-motion'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   Truck, 
@@ -108,35 +109,71 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
-        <h1 className="text-2xl font-bold mb-2">
-          {t('dashboard.welcome')}, Rajesh Kumar
-        </h1>
-        <p className="text-blue-100">
-          Managing operations for Kumar Industries, Bawana Industrial Area
-        </p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-800 rounded-2xl p-8 text-white shadow-2xl relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-3xl"></div>
+        <div className="relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-3xl md:text-4xl font-bold mb-3"
+          >
+            {t('dashboard.welcome')}, Rajesh Kumar 👋
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-blue-100 text-lg"
+          >
+            Managing operations for Kumar Industries, Bawana Industrial Area
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-4 flex items-center space-x-4"
+          >
+            <div className="flex items-center space-x-2 bg-white/20 rounded-full px-4 py-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm">All systems operational</span>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {overviewCards.map((card, index) => {
           const Icon = card.icon
           return (
-            <div key={index} className="bg-card rounded-lg p-6 border border-border hover:shadow-lg transition-shadow">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
+            >
               <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 rounded-lg ${card.color}`}>
+                <div className={`p-3 rounded-xl ${card.color} shadow-lg`}>
                   <Icon className="w-6 h-6 text-white" />
                 </div>
-                <div className={`flex items-center text-sm ${
+                <div className={`flex items-center text-sm font-medium ${
                   card.trend === 'up' ? 'text-green-500' : 'text-red-500'
                 }`}>
                   <TrendingUp className="w-4 h-4 mr-1" />
                   {card.change}
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-1">{card.value}</h3>
-              <p className="text-muted-foreground text-sm">{card.title}</p>
-            </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">{card.value}</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm">{card.title}</p>
+            </motion.div>
           )
         })}
       </div>
@@ -144,22 +181,45 @@ export default function Dashboard() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Delivery Trends */}
-        <div className="bg-card rounded-lg p-6 border border-border">
-          <h3 className="text-lg font-semibold mb-4">Weekly Delivery Trends</h3>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700"
+        >
+          <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Weekly Delivery Trends</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={deliveryData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="deliveries" fill="hsl(var(--primary))" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis dataKey="name" stroke="#64748b" />
+              <YAxis stroke="#64748b" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                }}
+              />
+              <Bar dataKey="deliveries" fill="url(#blueGradient)" radius={[4, 4, 0, 0]} />
+              <defs>
+                <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="100%" stopColor="#1d4ed8" />
+                </linearGradient>
+              </defs>
             </BarChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
 
         {/* Inventory Status */}
-        <div className="bg-card rounded-lg p-6 border border-border">
-          <h3 className="text-lg font-semibold mb-4">Inventory Status</h3>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-700"
+        >
+          <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Inventory Status</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -175,21 +235,28 @@ export default function Dashboard() {
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
           <div className="flex justify-center space-x-4 mt-4">
             {inventoryData.map((item, index) => (
               <div key={index} className="flex items-center">
-                <div 
-                  className="w-3 h-3 rounded-full mr-2" 
+                <div
+                  className="w-3 h-3 rounded-full mr-2"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-sm text-muted-foreground">{item.name}</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">{item.name}</span>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Recent Activities & Quick Actions */}
