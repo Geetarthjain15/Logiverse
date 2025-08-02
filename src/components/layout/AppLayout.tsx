@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { cn } from '@/lib/utils'
 import FloatingElements from '@/components/ui/FloatingElements'
+import Link from 'next/link'
 import {
   LayoutDashboard,
   Package,
@@ -89,14 +90,14 @@ export default function AppLayout({ children }: AppLayoutProps) {
           {navigationItems.map((item) => {
             const Icon = item.icon
             return (
-              <a
+              <Link
                 key={item.key}
                 href={item.href}
                 className="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 transition-all duration-200 group"
               >
                 <Icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-200" />
                 <span className="font-medium">{t(`nav.${item.key}`)}</span>
-              </a>
+              </Link>
             )
           })}
         </nav>

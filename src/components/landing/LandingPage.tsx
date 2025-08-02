@@ -172,8 +172,8 @@ const LandingPage = () => {
                 </button>
               </div>
 
-              <Link href="/dashboard">
-                <motion.button 
+              <Link href="/auth/signin">
+                <motion.button
                   className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -239,8 +239,8 @@ const LandingPage = () => {
                   {heroSlides[currentSlide].subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/dashboard">
-                    <motion.button 
+                  <Link href="/auth/signin">
+                    <motion.button
                       className="bg-white text-slate-900 px-8 py-4 rounded-xl font-semibold hover:bg-slate-100 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -399,7 +399,7 @@ const LandingPage = () => {
               Join thousands of MSMEs already saving costs and improving efficiency with LogiVerse
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/dashboard">
+              <Link href="/auth/signin">
                 <motion.button
                   className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center"
                   whileHover={{ scale: 1.05 }}
