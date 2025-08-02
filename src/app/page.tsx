@@ -5,8 +5,10 @@ import Dashboard from '@/components/dashboard/Dashboard'
 
 export default function Home() {
   return (
-    <AppLayout>
-      <Dashboard />
-    </AppLayout>
+    <div className="min-h-screen bg-gray-100">
+      <AppLayout>
+        <Dashboard />
+      </AppLayout>
+    </div>
   )
 }
